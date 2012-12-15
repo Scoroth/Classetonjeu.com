@@ -1,0 +1,22 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+<div class="slogan">Vote pour ton jeu et hisse le 1er du classement</div>
+<hr>
+
+
+{% for key, flash in app.session.getFlashes() %}
+<div class="alert alert-{{ key }}">
+{{ flash }}
+</div>
+{% endfor %}
+
+{% block ctjregister_body %}
+{% endblock %}
+
+{% endblock %}

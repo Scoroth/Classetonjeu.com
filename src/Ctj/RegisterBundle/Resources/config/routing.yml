@@ -1,0 +1,23 @@
+ctj_register_homepage:
+    pattern:  /homepage
+    defaults: { _controller: CtjRegisterBundle:Register:index }
+
+ctj_register_add:
+    pattern: /add
+    defaults: { _controller: CtjRegisterBundle:Register:add }
+    
+ctj_register_games:
+    pattern: /games_list/{page}/{id}
+    defaults: { _controller: CtjRegisterBundle:Register:games_list,page:a,id:1 }
+    requirements:
+      page: \w*
+
+ctj_register_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: CtjRegisterBundle:Register:edit }
+
+ctj_register_adm:
+    pattern:  /adm/{page}/{id}
+    defaults: { _controller: CtjRegisterBundle:Register:adm,page:a,id:1 }
+    requirements:
+      page: \w*

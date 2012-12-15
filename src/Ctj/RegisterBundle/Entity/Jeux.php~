@@ -1,0 +1,284 @@
+<?php
+
+namespace Ctj\RegisterBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+/**
+ * Ctj\RegisterBundle\Entity\Jeux
+ *
+ * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Ctj\RegisterBundle\Entity\JeuxRepository")
+ */
+class Jeux
+{
+    public function __construct() {
+        $this->date = new \DateTime();
+        $this->votes = '0';
+    }
+
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime $date
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var string $titre
+     *
+     * @ORM\Column(name="titre", type="string", length=255)
+     */
+    private $titre;
+
+    /**
+     * @var string $auteur
+     *
+     * @ORM\Column(name="auteur", type="string", length=255)
+     */
+    private $auteur;
+    
+     /**
+     * @var string $image
+     * @Assert\File( maxSize = "1024k", mimeTypesMessage = "Please upload a valid Image")
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     */
+    private $image;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $path;
+    
+    /**
+     * @var integer $votes
+     *
+     * @ORM\Column(name="votes", type="integer")
+     */
+    private $votes;
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;//s'il y a un chemin absolue (return null n'est pas égale au chemin absolue)alors on envoie la method getUploadRootDir()
+    }
+    
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+    
+     protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/image';
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->image) {
+            // faites ce que vous voulez pour générer un nom unique
+            $this->path = sha1(uniqid(mt_rand(), true)).'.';
+        }
+    }
+    
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->image) {
+            return;
+        }
+
+        // s'il y a une erreur lors du déplacement du fichier, une exception
+        // va automatiquement être lancée par la méthode move(). Cela va empêcher
+        // proprement l'entité d'être persistée dans la base de données si
+        // erreur il y a
+        $this->image->move($this->getUploadRootDir(), $this->path);
+
+        unset($this->image);
+    }
+    
+    
+     /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->getAbsolutePath()) {
+            unlink($this->getAbsolutePath());
+        }
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Jeux
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Jeux
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+    
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string 
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set auteur
+     *
+     * @param string $auteur
+     * @return Jeux
+     */
+    public function setAuteur($auteur)
+    {
+        $this->auteur = $auteur;
+    
+        return $this;
+    }
+
+    /**
+     * Get auteur
+     *
+     * @return string 
+     */
+    public function getAuteur()
+    {
+        return $this->auteur;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return Jeux
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Jeux
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set votes
+     *
+     * @param integer $votes
+     * @return Jeux
+     */
+    public function setVotes($votes)
+    {
+       $this->votes = $votes ;
+        return $this;
+       
+    }
+
+    /**
+     * Get votes
+     *
+     * @return integer 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+}

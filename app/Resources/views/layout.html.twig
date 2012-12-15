@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<title>{% block title %}Ctj{% endblock %}</title>
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ asset('css/css/bootstrap-image-gallery.min.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/slider/style.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/slider/nivo-slider.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/slider/bar/bar.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/slider/dark/dark.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/slider/default/default.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/slider/light/light.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/css/style.css') }}"/>
+<link href='http://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet' type='text/css'>
+{% endblock %}
+</head>
+
+<body>
+
+<div class="container">
+<div id="header" >
+<center style="font-family:Gruppo"><h1>ClasseTonJeu (&#946;)</h1></center>
+</div>
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li> <a class="brand" href="{{ path('ctj_register_homepage')}}">Accueil</a> </li>
+        <li class="divider-vertical"></li>
+        <li> <a class="brand" href="{{ path('ctj_register_add')}}">Ajoute ton jeu</a> </li>
+        <li class="divider-vertical"></li>
+        <li> <a class="brand" href="{{ path('ctj_register_games')}}">Vote pour ton jeu</a> </li>
+        <li class="divider-vertical"></li>
+        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Inscription </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">A venir</a></li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+<div id="menu2" class="span3">
+    
+
+<div id="sidebar">
+    {% render "CtjRegisterBundle:Classement:classement" with {'max': 3} %}
+</div>
+
+</div>
+
+<section  class="span9">
+
+{% block body %}
+{% endblock %}
+</section>
+
+</div>
+
+<hr>
+
+</div>
+</body>
+<footer>
+
+<div>
+<center><p class="footer">by Scoroth &copy; 2012</p></center>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{% block javascripts %}
+{# Ajoutez ce javascript si vous comptez vous servir des fonctionnalit�s du bootstrap Twitter #}
+<script src="{{ asset('js/jq/jquery-1.8.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+<script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
+<script src="{{ asset('js/js/bootstrap-image-gallery.js') }}"></script>
+<script src="{{ asset('js/js_slider/jquery.nivo.slider.js') }}"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+    </script>
+{% endblock %}
+</footer>
+</html>

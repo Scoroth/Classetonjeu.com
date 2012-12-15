@@ -1,0 +1,40 @@
+{% extends "CtjRegisterBundle::layout.html.twig" %}
+
+{% block title %}
+Accueil - {{ parent() }}
+{% endblock %}
+{% block ctjregister_body %}
+
+<center>
+<audio controls autoplay>
+    <source src="{{ asset('audio/Warlords.mp3') }}"></source>
+    <source src="{{ asset('audio/Warlords.ogg') }}"></source>
+</audio>
+<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+</center>
+
+<div id="list2" class="span9" >
+{% for user in users %}
+      
+    <font color="#871F78">{{ user.auteur }} </font> à ajouté <font color="#871F78">{{ user.titre }}</font>  le <font color="#871F78">{{ user.date|date('d/m/Y') }}</font> à <font color="#871F78">{{ user.date|date('H \\h i') }}</font><br/>
+{% endfor %}
+</div>
+<br/>
+ <div id="wrapper" >
+       
+
+        <div class="slider-wrapper theme-default">
+            <div id="slider" class="nivoSlider">
+                <img src="http://localhost/Symfony2.1/web/images/final-fantasy-versus-xiii.jpg" data-thumb="images/final-fantasy-versus-xiii.jpg" alt="" />
+                
+                <img src="http://localhost/Symfony2.1/web/images/artwork_zeratul_poster1-full.jpg" data-thumb="images/artwork_zeratul_poster1-full.jpg" alt="" data-transition="slideInLeft" />
+                <img src="http://localhost/Symfony2.1/web/images/assassin-s-creed-3-en-video.jpg" data-thumb="images/9331.jpg" alt="" title="#htmlcaption" />
+		
+	
+            
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+formulaire - {{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="span5">
+<div class="formulaire">
+<form class="well form-inline" method="post" {{ form_enctype(form) }}>
+	
+       
+	{{ form_label(form.auteur,"Pseudonyme :") }}
+        {{ form_widget(form.auteur) }}
+        {{ form_label(form.titre, "Titre du jeu :") }}
+        {{ form_widget(form.titre) }}
+        {{ form_label(form.image, "Jaquette :") }}
+        
+        {{ form_widget(form.image) }}
+        
+        {{ form_errors(form.image) }}
+
+        {{ form_rest(form) }}
+ 
+	<input  type="submit" class="btn btn-primary btn-small " />
+</form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+@charset 'UTF-8';
+[class="span3"] {
+ background-color: #545454;
+ border-radius: 0px 0px 50px 50px;
+ text-align: center;
+    box-shadow: 7px 0 10px #555;  
+ 
+}
+
+[class="span6"] {
+ background-color: #545454;
+ border-radius: 0px 0px 50px 50px;
+ text-align: center;
+ box-shadow: -7px 0 10px #555;  
+ 
+}
+
+.slogan {
+
+  text-align: center;
+  font-family:'Gruppo';
+
+	font-size:185%;
+	
+}
+
+[class="span5"]{
+	text-align: center;
+}
+
+.list{
+	color: #C0D9D9;
+	font-family:Courier New;
+	
+	
+}
+
+
+#list2{
+	text-align: center;
+	background-color:   #E6E8FA;
+	border-radius: 15px 5px 15px 5px;
+	text-align: center;
+    box-shadow: 7px 0 10px #555;  
+	font-family:Courier New;
+}
+
+
+body{
+	background-color: #ffffff;
+}
+
+.formulaire{
+	font-family:cursive;
+	position:relative;
+	height:30%;
+	
+}
+
+footer{
+	margin-top:5%;
+}
+
+.top{
+	position:relative;
+	top:10px;
+	font-family:Tahoma;
+	font-size:145%;
+	
+}
+
+body{
+	background-image:url(../../images/fond.jpg);
+	background-attachment:fixed;
+}
+

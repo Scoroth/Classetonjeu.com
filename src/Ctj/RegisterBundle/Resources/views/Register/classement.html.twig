@@ -1,0 +1,18 @@
+<div class="list">
+<div class="top"><font color="#FFFFFF">TOP 20</font></div><hr/>
+{% for key,top in classement %}
+  
+     {% if key == 0 %}
+       <div class="top">1</div><br/><font color="#D9D919" size="5px" face="Impact">{{ top.titre }} </font><br/> Avec {{ top.votes }} vote(s) <br/><hr/>
+        {% elseif key == 1 %}
+        <div class="top">2</div><br/><font color="#E6E8FA" size="5px" face="Impact">{{ top.titre }} </font><br/> Avec {{ top.votes }} vote(s) <br/><hr/>
+        {% elseif key == 2 %}
+        <div class="top">3</div><br/><font color="#A67D3D" size="5px" face="Impact">{{ top.titre }} </font><br/> Avec {{ top.votes }} vote(s) <br/><hr/>
+        {% else%}
+
+<div class="top">{{key+1}}</div><br/><font color="#FFFFFF" size="5px" face="Impact">{{ top.titre }}</font><br/> Avec {{ top.votes }} vote(s)<br/>{% if key != 19 %}<hr/> {%endif%}
+     {%endif%}
+    
+
+{% endfor %}
+</div>

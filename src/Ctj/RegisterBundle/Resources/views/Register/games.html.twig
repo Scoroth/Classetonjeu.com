@@ -1,0 +1,57 @@
+{% extends "CtjRegisterBundle::layout.html.twig" %}
+
+{% block title %}
+liste - {{ parent() }}
+{% endblock %}
+
+{% block ctjregister_body %}
+<div id="modal-gallery" class="modal modal-gallery hide fade">
+    <div class="modal-header"> <a class="close" data-dismiss="modal">&times;</a>
+      <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body">
+      <div class="modal-image"></div>
+    </div>
+    <div class="modal-footer"> <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Télécharger</a> 
+    <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Diaporama</a>
+    <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Précédent</a>
+    <a class="btn btn-primary modal-next">Suivant <i class="icon-arrow-right icon-white"></i></a>  </div>
+  </div>
+
+<div id="gallery" data-target="#modal-gallery" data-toggle="modal-gallery" >
+    <ul>
+    {% for jeu in jeux %}
+    <li class="span2">
+        <a href="http://localhost/Symfony2.1/web/uploads/image/{{ jeu.path }}" title="{{jeu.titre}}" rel="gallery" ><img src="http://localhost/Symfony2.1/web/uploads/image/{{ jeu.path }}"/></a>
+        <form action="{{ path('ctj_register_games',{'id':jeu.id}) }}" method="post" {{ form_enctype(form) }}>
+	
+	{{ form_widget(form) }}
+	{% if app.request.cookies.get('vote')%} 
+       
+        <p>attendez : <font color="#FF002E" face="cursive;" size="4">{{date}}</font> avant votre prochain vote. </p>
+        <input type="submit" class="btn btn-info btn-mini disabled" value="vote pour {{ jeu.titre }}"/>
+         {% else %}
+        <input class="btn btn-info btn-mini" type="submit" value="vote pour {{ jeu.titre }}" />
+        {% endif %}
+        </form>
+</li>
+    {% else %}
+    <li>sois le 1er à <a href="{{path('ctj_register_add')}}">ajouter</a> un jeu</li>
+    {% endfor %}
+    </ul>
+</div>
+<div class="pagination">
+     <ul>
+     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+     {% for a in alphabet %}
+     <li class="pagination">
+     <a  href="{{ path('ctj_register_games', {'page': a}) }}">{{ a }}</a>
+     </li>
+     </li>
+     {% endfor %}
+     </ul>
+    </div>
+    
+
+{% endblock %}
+
